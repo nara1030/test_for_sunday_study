@@ -54,7 +54,7 @@ test
 
 ##### [목차로 이동](#목차)
 
-### 화면 그리기
+### 데이터 처리하기
 처리란 요청 및 응답을 말한다.
 
 1. 요청 시
@@ -64,7 +64,8 @@ test
 			* [What is the difference between `org.apache.http.HttpRequest` and `javax.servlet.http.HttpServletRequest`?](https://stackoverflow.com/questions/26190641/what-is-the-difference-between-org-apache-http-httprequest-and-javax-servlet-htt)
 			* [Difference between ServletRequest & HttpServletRequest](https://coderanch.com/t/621449/java/Difference-ServletRequest-HttpServletRequest)
 	2. JSP와 Controller 간 매핑 매커니즘
-		* JSP의 `form` 태그 내부 `input`가 Controller 메서드의 파라미터인 VO로 자동 매핑되는 원리 
+		1. JSP의 `form` 태그 내부 `input`가 Controller 메서드의 파라미터인 VO로 자동 매핑되는 원리
+		2. JSP의 데이터를 2개 이상의 VO로 받아올 수 있는가
 2. 응답 시
 
 
