@@ -7,7 +7,8 @@ test
 1. [화면에서 서버로 데이터 넘기기](#화면에서-서버로-데이터-넘기기)
 	1. [개발환경](#개발환경)
 	2. [화면 그리기](#화면-그리기)
-	3. .
+	3. [데이터 처리하기](#데이터-처리하기)
+	4. [기타](#기타)
 2. .
 
 ## 화면에서 서버로 데이터 넘기기
@@ -16,7 +17,7 @@ test
 > * 프레임워크: SPRINGBOOT
 > * 데이터베이스: H2
 > * 빌드: MAVEN
-> * 기타: JSP(JSTL)
+> * 기타: JSP(JSTL), SL4J
 
 - - -
 
@@ -50,6 +51,34 @@ test
 		* [label 태그](https://www.codingfactory.net/11008)
 	2. .
 4. 부트스트랩 적용하기
+
+##### [목차로 이동](#목차)
+
+### 화면 그리기
+처리란 요청 및 응답을 말한다.
+
+1. 요청 시
+	1. `HttpRequest` vs `HttpServletRequest`
+		* .
+		* 레퍼런스
+			* [What is the difference between `org.apache.http.HttpRequest` and `javax.servlet.http.HttpServletRequest`?](https://stackoverflow.com/questions/26190641/what-is-the-difference-between-org-apache-http-httprequest-and-javax-servlet-htt)
+			* [Difference between ServletRequest & HttpServletRequest](https://coderanch.com/t/621449/java/Difference-ServletRequest-HttpServletRequest)
+	2. JSP와 Controller 간 매핑 매커니즘
+		* JSP의 `form` 태그 내부 `input`가 Controller 메서드의 파라미터인 VO로 자동 매핑되는 원리 
+2. 응답 시
+
+
+##### [목차로 이동](#목차)
+
+### 기타
+1. 브라우저 캐시 지우기
+	* 단축키: Ctrl-Shift-Delete
+	* 레퍼런스
+		* [Clear your web browser's cache, cookies, and history](https://kb.iu.edu/d/ahic)
+2. 로거 설정하기
+	* .
+3. TDD 적용하기
+4. 깃허브 연동하기
 
 ##### [목차로 이동](#목차)
 
