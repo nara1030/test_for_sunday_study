@@ -33,6 +33,7 @@ test
 		* [스프링 부트 H2 클라이언트로 인텔리제이 사용하기](https://jojoldu.tistory.com/234)
 		* [스프링 부트와 H2를 이용한 CRUD 구현](https://augustines.tistory.com/177)
 		* [H2: Data Types](http://www.h2database.com/html/datatypes.html)
+		* [스프링 부트 실행 시, DB 데이터 삽입](https://pasudo123.tistory.com/394)
 2. .
 
 ##### [목차로 이동](#목차)
@@ -92,7 +93,8 @@ test
 				(사람 엔티티의 정체성은 `id`로 표현되며 외에 이름, 이메일, 비밀번호는 수정 가능)
 				* 반면 값 객체는 속성이 같아야 같은 것으로 인식  
 				(위치 객체의 정체성은 위도와 경도로 결정되며, 같은 위도와 경도를 가진다면 두 객체는 동일)
-					1. ∴ VO는 세터(Setter) 없음(DTO와의 가장 큰 차이점)
+					1. ∴ VO는 세터(Setter) 없음  
+					(DTO와의 가장 큰 차이점)
 					2. ∴ VO의 핵심 역할은 `equals()`와 `hashcode()`를 오버라이딩하는 것  
 						```java
 						@Override
@@ -118,7 +120,8 @@ test
 				1. 값 객체: 위치, 날짜, 숫자, 금액
 				2. 엔티티: 사람, 제품, 파일, 판매
 		4. 기타
-			* 흔히 DB와 1:1로 구현하는데, 보안상 문제가 발생할 수 있음(참고: [MVC 모델에서의 DTO 객체 설계](https://www.slideshare.net/sunnykwak90/mvc-vo))
+			* 흔히 DB와 1:1로 구현하는데, 보안상 문제가 발생할 수 있음  
+			(참고: [MVC 모델에서의 DTO 객체 설계](https://www.slideshare.net/sunnykwak90/mvc-vo))
 	* 레퍼런스
 		* [값 객체](https://zetawiki.com/wiki/%EA%B0%92_%EA%B0%9D%EC%B2%B4)
 		* [Entity, VO, DTO](https://medium.com/webeveloper/entity-vo-dto-666bc72614bb)
@@ -137,6 +140,12 @@ test
 	* .
 3. TDD 적용하기
 4. 깃허브 연동하기
+	* .
+	* 레퍼런스
+		* [GitHub Training & Guides](https://www.youtube.com/user/GitHubGuides/videos)
+		* GitHub로 프로젝트 관리하기
+			* [이슈 발급부터 코드리뷰까지](https://www.popit.kr/github%EB%A1%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-part1-%EC%9D%B4%EC%8A%88-%EB%B0%9C%EA%B8%89-%EB%B6%80%ED%84%B0-%EC%BD%94%EB%93%9C%EB%A6%AC%EB%B7%B0%EA%B9%8C/)
+			* [CI & Test Coverage & Wiki](https://www.popit.kr/github%EB%A1%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B4%80%EB%A6%AC%ED%95%98%EA%B8%B0-part2-ci-test-coverage-wiki/)
 5. [인텔리제이 단축키](https://gmlwjd9405.github.io/2019/05/21/intellij-shortkey.html)
 
 ##### [목차로 이동](#목차)
