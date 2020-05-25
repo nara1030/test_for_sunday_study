@@ -15,7 +15,7 @@ test
 ### 개발환경
 > * 언어: JAVA8
 > * 프레임워크: SPRINGBOOT
-> * 데이터베이스: H2
+> * 데이터베이스: H2, Oracle(추후)
 > * 빌드: MAVEN
 > * 기타: JSP(JSTL), SL4J
 
@@ -32,6 +32,7 @@ test
 		* [Spring Boot With H2 Databse](https://www.baeldung.com/spring-boot-h2-database)
 		* [스프링 부트 H2 클라이언트로 인텔리제이 사용하기](https://jojoldu.tistory.com/234)
 		* [스프링 부트와 H2를 이용한 CRUD 구현](https://augustines.tistory.com/177)
+		* [H2: Data Types](http://www.h2database.com/html/datatypes.html)
 2. .
 
 ##### [목차로 이동](#목차)
@@ -60,14 +61,70 @@ test
 1. 요청 시
 	1. `HttpRequest` vs `HttpServletRequest`
 		* .
+		* 중복 제출 방지
+			1. 뒤로 가기 방지
+			2. 동일 IP 체크
 		* 레퍼런스
 			* [What is the difference between `org.apache.http.HttpRequest` and `javax.servlet.http.HttpServletRequest`?](https://stackoverflow.com/questions/26190641/what-is-the-difference-between-org-apache-http-httprequest-and-javax-servlet-htt)
 			* [Difference between ServletRequest & HttpServletRequest](https://coderanch.com/t/621449/java/Difference-ServletRequest-HttpServletRequest)
 	2. JSP와 Controller 간 매핑 매커니즘
-		1. JSP의 `form` 태그 내부 `input`가 Controller 메서드의 파라미터인 VO로 자동 매핑되는 원리
-		2. JSP의 데이터를 2개 이상의 VO로 받아올 수 있는가
+		* 값 전달 방식
+			1. `HttpServletRequest`
+			2. VO[1]
+				* `@ModelAttribute`는 스프링에서 Setter 자동 호출
+				* JSP의 `form` 태그 내부 `input`이 Controller 메서드의 파라미터인 VO로 자동 매핑되는 원리
+				* ~~JSP의 데이터를 2개 이상의 VO로 받아올 수 있는가~~ → 상속 이용 하나의 VO로?
+			3. `@RequestParam`
+				*Primitive type만 허용
+	3. DTO와 VO
+		* JSP에서 전달되는 데이터 자료형(`String`)과 DB의 컬럼형(`Number`)이 다를 경우?
 2. 응답 시
 
+
+- - -
+1. Value Object(VO)
+	* 단지 DB 테이블에 데이터를 전달(매핑)하는 클래스(객체)라고 생각하기엔 짚고 넘어가야 할 부분 존재
+		* 이를 테면 ORM 프레임워크에서 테이블 매핑 객체는 엔티티라 부르지만, 자바에서는 값 객체라 부름
+	* 개념
+		1. 엔티티 vs 값 객체
+			* 엔티티는 가변(Mutable) 객체인 반면, 값 객체는 불변(Immutable) 객체
+				* 엔티티(객체)는 속성이 바뀌어도 여전히 같은 것으로 인식  
+				(사람 엔티티의 정체성은 `id`로 표현되며 외에 이름, 이메일, 비밀번호는 수정 가능)
+				* 반면 값 객체는 속성이 같아야 같은 것으로 인식  
+				(위치 객체의 정체성은 위도와 경도로 결정되며, 같은 위도와 경도를 가진다면 두 객체는 동일)
+					1. ∴ VO는 세터(Setter) 없음(DTO와의 가장 큰 차이점)
+					2. ∴ VO의 핵심 역할은 `equals()`와 `hashcode()`를 오버라이딩하는 것  
+						```java
+						@Override
+						public boolean equals(Object o) {
+							if (this == o) return true;
+							if (o == null || getClass() != o.getClass()) return false;
+							Article article = (Article) o;
+							return Objects.equals(id, article.id);
+						}
+
+						@Override
+						public int hashCode() {
+							return Objects.hash(id);
+						}
+						```
+		2. `Value Context` vs `Identifier Context`
+			* 코드스피츠에서 [관련 부분 언급](https://github.com/nara1030/TIL/blob/master/docs/lecture_list/code_spitz/s86_oop_javascript/week_1.md)
+				* 함수형 프로그래밍: 값(Value)
+				* 객체지향 프로그래밍: 식별자(Identifier)
+		3. 어떻게 값 객체를 식별할까?
+			* 어떤 객체가 엔티티인지 값 객체인지는 애플리케이션의 상황에 따라 달라짐
+			* 단, 일반적인 경우 아래와 같은 분류
+				1. 값 객체: 위치, 날짜, 숫자, 금액
+				2. 엔티티: 사람, 제품, 파일, 판매
+		4. 기타
+			* 흔히 DB와 1:1로 구현하는데, 보안상 문제가 발생할 수 있음(참고: [MVC 모델에서의 DTO 객체 설계](https://www.slideshare.net/sunnykwak90/mvc-vo))
+	* 레퍼런스
+		* [값 객체](https://zetawiki.com/wiki/%EA%B0%92_%EA%B0%9D%EC%B2%B4)
+		* [Entity, VO, DTO](https://medium.com/webeveloper/entity-vo-dto-666bc72614bb)
+		* [엔티티와 값 객체의 차이](https://jaeyeolshin.github.io/2016-02-06/difference-between-entity-and-value-object/): [-](https://github.com/nara1030/test_for_sunday_study/blob/master/docs/vo_vs_entity.pdf)
+		* [`java.lang.Object.hashCode` 메소드](https://johngrib.github.io/wiki/Object-hashCode/)
+2. .
 
 ##### [목차로 이동](#목차)
 
@@ -80,6 +137,7 @@ test
 	* .
 3. TDD 적용하기
 4. 깃허브 연동하기
+5. [인텔리제이 단축키](https://gmlwjd9405.github.io/2019/05/21/intellij-shortkey.html)
 
 ##### [목차로 이동](#목차)
 
